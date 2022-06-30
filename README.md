@@ -90,3 +90,49 @@ handleFocus = (e) => {
 };
 <xxx ref={this.refname} />;
 ```
+
+## 컴포넌트 반복
+
+arr.map(callback)으로 하는게 가장 기본적
+
+반복요소에 key prop이 필요함. 리엑트에서는 배열을 렌더링했을때 원소에 변동을 알아내기 위해 key값을 사용하기때문.
+
+웬만하면 key값을 index값으로 사용하지 않는게 좋음. 배열이 리렌더링 될때 효율적으로 하지 못함.
+
+## Hooks
+
+### useState
+
+State생성
+
+### useEffect
+
+component가 mount되거나 update되고 나서 실행.
+마운트시에만 실행하고 싶을 때는 useEffect(xxx, [])
+처럼 defendency List(이 값들이 변할때만 실행)에 빈 배열 넣어주면 됨.
+
+conponent가 언마운트나 업데이트 하기 직전에 실행하고 싶을 때는
+useEffect callback함수의 return값으로 정의
+
+### useReducer
+
+dispatch로 action값을 주면 callback으로 처리해서 렌더링
+
+```js
+callback(state, action) => {...};
+```
+
+```js
+const [state, dispatch] = useReducer(callback, state 초기값);
+```
+
+### useMemo
+
+onChange에 의해서 새로 렌더링되는 DOM에 함수가 포함되어있으면 렌더링될때마다 필요없이 실행됨.
+그래서 렌더링 과정에서 값이 변할때만 렌더링하게 하기 위해 useMemo 사용
+
+두번쨰 parameter는 dependency list
+
+```js
+const avg = useMemo(() => getAverage(list), [list]);
+```
